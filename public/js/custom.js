@@ -7,19 +7,15 @@ $(document).ready(function () {
         }
     });
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
+    $("#img-upload").change(function () {
+        if (this.files && this.files[0]){
             var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
 
             reader.onload = function (e) {
-                $('#img-upload-tag').attr('src', e.target.result);
+                $('#img-upload-tag').attr('src', reader.result);
             }
-            reader.readAsDataURL(input.files[0]);
         }
-    }
-
-    $("#img-upload").change(function () {
-        readURL(this);
     });
 
 });

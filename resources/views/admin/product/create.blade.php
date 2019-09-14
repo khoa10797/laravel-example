@@ -7,7 +7,7 @@
                 <form method="POST" action="{{ route('product.store') }}" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="category_id">Mã sản phẩm: </label>
+                        <label for="category_id">Mã loại: </label>
                         <select class="form-control" name="category_id" required>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">
@@ -37,7 +37,10 @@
                         <input type="file" id="img-upload" class="form-control" name="image" required/>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+                    <a role="button" class="btn btn-info m-1" href="{{url('/admin/product')}}" style="color: white">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <button type="submit" class="btn btn-primary m-1">Thêm sản phẩm</button>
                 </form>
             </div>
 
@@ -46,4 +49,14 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection

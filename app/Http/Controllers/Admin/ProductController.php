@@ -78,8 +78,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $product = Product::query()->find($id);
-        return view('admin.product.edit', ['product' => $product]);
+        return view('admin.product.edit', ['categories' => $categories, 'product' => $product]);
     }
 
     /**
@@ -91,7 +92,33 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+
+        $product = Product::query()->find($id);
+        $note = $request->get('note') == null ? '' : $request->get('note');
+        $image = $product->image;
+        if ($request->file('image')) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
+            $image = $this->uploadImage($request);
+            unlink(public_path($product->image));
+        }
+
+
+        $product->category_id = $request->get('category_id');
+        $product->name = $request->get('name');
+        $product->price = $request->get('price');
+        $product->note = $note;
+        $product->image = $image;
+
+        $product->save();
+        return redirect('/admin/product');
     }
 
     /**
