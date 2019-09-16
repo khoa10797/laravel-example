@@ -26,6 +26,7 @@
     <!-- Font-Awesome-Icons-CSS -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <!-- Custom-Files -->
+    <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Web-Fonts -->
     <link
@@ -80,15 +81,23 @@
                                         <span class="fa fa-facebook-f"></span>
                                     </a>
                                 </li>
-                                <li class="twitter-w3">
-                                    <a href="#twitter">
-                                        <span class="fa fa-twitter"></span>
-                                    </a>
-                                </li>
                                 <li class="google-w3">
                                     <a href="#google">
                                         <span class="fa fa-google-plus"></span>
                                     </a>
+                                </li>
+                                <li>
+                                    <p>Cart:</p>
+                                </li>
+                                <li class="twitter-w3">
+                                    <div style="position: relative">
+                                        <a href="{{url('/order')}}">
+                                            <span class="fa fa-shopping-cart"></span>
+                                        </a>
+                                        @if(Session::has('total-item') && Session::get('total-item'))
+                                            <span id="total-item-cart">{{Session::get('total-item')}}</span>
+                                        @endif
+                                    </div>
                                 </li>
                             </ul>
                             <!-- //social icons -->

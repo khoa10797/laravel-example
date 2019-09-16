@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('home.index');
@@ -21,6 +22,12 @@ Auth::routes();
 
 Route::get('/menu/search/{search}', 'MenuController@search');
 Route::get('/menu/category/{category}', 'MenuController@findByCategory');
+
+Route::get('admin', 'Admin\AdminController@index');
+
+Route::post('/order/invoiceDetail', 'OrderController@addItem');
+Route::put('/order/invoiceDetail', 'OrderController@updateItem');
+Route::get('/order/invoiceDetail/remove/{productId}', 'OrderController@removeItem');
 
 Route::group(['namespace' => 'Auth'], function () {
     Route::get('/login', 'LoginController@showLoginForm');

@@ -79,14 +79,17 @@
                                         <span class="fa fa-facebook-f"></span>
                                     </a>
                                 </li>
-                                <li class="twitter-w3">
-                                    <a href="#twitter">
-                                        <span class="fa fa-twitter"></span>
-                                    </a>
-                                </li>
                                 <li class="google-w3">
                                     <a href="#google">
                                         <span class="fa fa-google-plus"></span>
+                                    </a>
+                                </li>
+                                <li class="ml-3">
+                                    <p>Cart:</p>
+                                </li>
+                                <li class="twitter-w3">
+                                    <a href="#cart">
+                                        <span class="fa fa-shopping-cart"></span>
                                     </a>
                                 </li>
                             </ul>

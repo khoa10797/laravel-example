@@ -14,14 +14,14 @@ class MenuController extends Controller
     public function findByCategory($category)
     {
         $categories = Category::all();
-        $products = Product::query()->where('category_id', '=', $category)->paginate(3);
+        $products = Product::query()->where('category_id', '=', $category)->paginate(12);
         return view('menu.index', ['products' => $products, 'categories' => $categories, 'categoryId' => $category]);
     }
 
     public function search($search)
     {
         $categories = Category::all();
-        $products = Product::search($search)->paginate(3);
+        $products = Product::search($search)->paginate(12);
         return view('menu.index', ['products' => $products, 'categories' => $categories, 'categoryId' => '']);
     }
 

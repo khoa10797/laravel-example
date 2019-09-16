@@ -35,13 +35,6 @@
                         @endif
                     </div>
                     <button type="submit" class="btn submit mb-4">Login</button>
-                    <p class="forgot-w3ls text-center mb-3">
-                        <a href="#" class="text-da">Forgot your password?</a>
-                    </p>
-                    <p class="account-w3ls text-center text-da">
-                        Don't have an account?
-                        <a href="register.html">Create one now</a>
-                    </p>
                 </form>
             </div>
         </div>

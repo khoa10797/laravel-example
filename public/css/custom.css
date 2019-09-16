@@ -1,0 +1,9 @@
+#total-item-cart {
+    position: absolute;
+    top: -5px;
+    color: red;
+}
+
+#total-price{
+    color: red;
+}

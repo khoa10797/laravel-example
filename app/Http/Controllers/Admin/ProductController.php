@@ -27,6 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-product');
         $categories = Category::all();
         return view('admin.product.create', ['categories' => $categories]);
     }
@@ -39,6 +40,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-product');
         $request->validate([
             'category_id' => 'required',
             'name' => 'required',
@@ -78,6 +80,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update-product');
         $categories = Category::all();
         $product = Product::query()->find($id);
         return view('admin.product.edit', ['categories' => $categories, 'product' => $product]);
@@ -92,6 +95,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update-product');
         $request->validate([
             'category_id' => 'required',
             'name' => 'required',
@@ -130,6 +134,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete-product');
         $product = Product::query()->find($id);
         $imagePath = $product->image;
         unlink(public_path($imagePath));
@@ -141,7 +146,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return string
      */
-    public function uploadImage(Request $request)
+    private function uploadImage(Request $request)
     {
         $image = $request->file('image');
         $generateName = str_slug($request->get('name')) . '_' . time();

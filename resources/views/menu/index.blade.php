@@ -55,10 +55,17 @@
             <div class="popup">
                 <img class="img-fluid" src="{{$product->image}}" alt="">
                 <h4 class="p-mask">{{$product->name}} - <span>$22</span></h4>
-                {{--                APPEND LINK TO ORDER BUTTON --}}
-                <a href="#" class="button-w3ls active mt-3">Order Now
-                    <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
-                </a>
+                <form method="POST" action="{{url('/order/invoiceDetail')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="email">Số lượng:</label>
+                        <input type="number" class="form-control" name="quantity" value="1" min="1" max="50">
+                    </div>
+                    <input type="hidden" name="product-id" value="{{$product->id}}">
+                    <button type="submit" class="btn btn-success">
+                        Order <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
+                    </button>
+                </form>
                 <a class="close" href="#">×</a>
             </div>
         </div>
