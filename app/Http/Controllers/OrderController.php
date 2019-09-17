@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Invoice;
 use App\InvoiceDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -20,16 +21,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -37,29 +28,37 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required'
+        ]);
+
+        $invoice = new Invoice([
+            'customer_name' => $request->get('name'),
+            'customer_phone' => $request->get('phone'),
+            'address' => $request->get('address')
+        ]);
+
+        $invoice->save();
+        $this->insertInvoiceDetail($invoice->id);
+        Session::flush();
+
+        return redirect('/menu');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    private function insertInvoiceDetail($invoiceId)
     {
-        //
-    }
+        $invoiceDetails = (array)session()->get('invoice-details');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $invoiceDetails = array_map(function ($element) use ($invoiceId) {
+            $element->invoice_id = $invoiceId;
+            return $element;
+        }, $invoiceDetails);
+
+        foreach ($invoiceDetails as $invoiceDetail) {
+            $invoiceDetail->save();
+        }
     }
 
     /**

@@ -24,6 +24,7 @@ class ProductController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
@@ -37,6 +38,7 @@ class ProductController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
@@ -77,6 +79,7 @@ class ProductController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($id)
     {
@@ -92,6 +95,7 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, $id)
     {

@@ -17,8 +17,9 @@ class CreateInvoicesTable extends Migration
             $table->bigIncrements('id');
             $table->string('customer_name');
             $table->string('customer_phone');
-            $table->boolean('paid');
-            $table->double('price');
+            $table->string('address');
+            $table->tinyInteger('status');
+            $table->double('price')->nullable();
             $table->timestamps();
         });
     }

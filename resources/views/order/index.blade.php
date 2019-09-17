@@ -36,6 +36,43 @@
             </tbody>
         </table>
 
-        <p class="mt-5">Tổng tiền: <span id="total-price"></span> VND</p>
+        <div class="d-flex flex-row justify-content-sm-between align-items-center mt-5">
+            <p>Tổng tiền: <span id="total-price"></span> VND</p>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Đặt hàng</button>
+        </div>
+
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thông tin khách hàng</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form method="POST" action="{{url('/order')}}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Họ và tên:</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại:</label>
+                                <input type="text" class="form-control" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Địa chỉ:</label>
+                                <input type="text" class="form-control" name="address" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Xong</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     @endif
 @endsection
