@@ -37,6 +37,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('update-product', function ($user) {
             return $this->authorization($user, 'UPDATE_PRODUCT');
         });
+
+        Gate::define('view-admin', function ($user) {
+            return $this->authorization($user, 'VIEW_ADMIN');
+        });
     }
 
     private function authorization(User $user, $roleName)

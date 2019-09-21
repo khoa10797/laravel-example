@@ -23,7 +23,10 @@ Auth::routes();
 Route::get('/menu/search/{search}', 'MenuController@search');
 Route::get('/menu/category/{category}', 'MenuController@findByCategory');
 
-Route::get('admin', 'Admin\AdminController@index');
+Route::get('/admin', 'Admin\AdminController@index');
+Route::get('/admin/order', 'OrderController@get');
+Route::get('/admin/order/update/{id}/{status}', 'OrderController@updateStatus');
+Route::get('/admin/order/{id}', 'OrderController@show');
 
 Route::post('/order/invoiceDetail', 'OrderController@addItem');
 Route::put('/order/invoiceDetail', 'OrderController@updateItem');

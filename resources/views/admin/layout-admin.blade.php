@@ -81,6 +81,11 @@
                 <a class="dropdown-item" href="{{url('/admin/product/create')}}">Thêm sản phẩm</a>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/admin/order')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Đơn hàng</span></a>
+        </li>
     </ul>
 
     <div id="content-wrapper">

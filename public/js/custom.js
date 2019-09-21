@@ -5,6 +5,9 @@ $(document).ready(function () {
         }
     });
 
+    $('#total-price').text(calculatingPriceOrder());
+
+    // Enter to search product
     $('#search-box').keypress(function (event) {
         var keyCode = (event.keyCode ? event.keyCode : event.which);
         if (keyCode == '13') {
@@ -12,6 +15,7 @@ $(document).ready(function () {
         }
     });
 
+    // Preview image when create or update
     $('#img-upload').change(function () {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
@@ -23,6 +27,7 @@ $(document).ready(function () {
         }
     });
 
+    // Reset price when product quantity changes
     $('.input-product-order').change(function () {
         var quantity = $(this).val();
         var price = $(this).data('price');
@@ -46,6 +51,7 @@ $(document).ready(function () {
         });
     });
 
+    // Calculating total price
     function calculatingPriceOrder() {
         var totalPrice = 0;
         $('#table-order').find('tr').each(function () {
@@ -57,6 +63,4 @@ $(document).ready(function () {
         });
         return totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
     }
-
-    $('#total-price').text(calculatingPriceOrder());
 });

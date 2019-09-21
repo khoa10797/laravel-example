@@ -9,6 +9,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-admin');
         return view('admin.index');
     }
 }

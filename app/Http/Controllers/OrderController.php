@@ -37,7 +37,8 @@ class OrderController extends Controller
         $invoice = new Invoice([
             'customer_name' => $request->get('name'),
             'customer_phone' => $request->get('phone'),
-            'address' => $request->get('address')
+            'address' => $request->get('address'),
+            'price' => $this->calculatingPrice()
         ]);
 
         $invoice->save();
@@ -61,6 +62,66 @@ class OrderController extends Controller
         }
     }
 
+    private function calculatingPrice()
+    {
+        $invoiceDetails = (array)session()->get('invoice-details');
+
+        $payouts = array_map(function ($element) {
+            return (int)$element->quantity * $element->product->price;
+        }, $invoiceDetails);
+
+        return array_sum($payouts);
+    }
+
+    public function get(Request $request)
+    {
+        $invoices = Invoice::query();
+        $status = $request->get('status');
+        $startDateString = $request->get('start-date');
+        $endDateString = $request->get('end-date');
+
+        if ($status != null && $status != -101) {
+            $invoices = $invoices->where('status', '=', $status);
+        }
+
+        if ($startDateString != null) {
+            $startDate = \DateTime::createFromFormat('d-m-Y H:i:s', $startDateString . ' 00:00:00');
+            $invoices = $invoices->where('updated_at', '>=', $startDate);
+        }
+
+        if ($endDateString != null) {
+            $endDate = \DateTime::createFromFormat('d-m-Y H:i:s', $endDateString . ' 23:59:59');
+            $invoices = $invoices->where('updated_at', '<=', $endDate);
+        }
+
+        return view('order.index-admin', [
+            'invoices' => $invoices->paginate(20),
+            'status' => $status,
+            'startDate' => $startDateString,
+            'endDate' => $endDateString
+        ]);
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $invoice = Invoice::query()->find($id);
+        $invoice->status = $status;
+        $invoice->save();
+        return \App::make('redirect')->back();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $invoice = Invoice::query()->find($id);
+        return view('order.detail', ['invoice' => $invoice]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -69,17 +130,6 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }
