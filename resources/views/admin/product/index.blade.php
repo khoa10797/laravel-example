@@ -32,7 +32,7 @@
         <div id="{{'p'.$product->id}}" class="pop-overlay">
             <div class="popup">
                 <img class="img-fluid" src="{{$product->image}}" alt="">
-                <h4 class="p-mask">{{$product->name}} - <span>$22</span></h4>
+                <h4 class="p-mask">{{$product->name}} - <span>${{$product->price}}K</span></h4>
                 <div class="d-flex justify-content-center">
                     <a href="{{route('product.edit', ['id'=>$product->id])}}" role="button" class="btn btn-primary mr-1">Sửa</a>
                     <form action="{{url('/admin/product',['id'=>$product->id])}}" method="POST" class="ml-1">

@@ -129,9 +129,9 @@
                     <input type="checkbox" id="drop"/>
                     <ul class="menu">
                         <li><a href="{{url('home')}}">Home</a></li>
-                        <li><a href="{{url('menu')}}">About Us</a></li>
+                        {{--                        <li><a href="{{url('menu')}}">About Us</a></li>--}}
                         <li><a href="{{url('menu')}}">Menu</a></li>
-                        <li><a href="{{url('menu')}}">Contact Us</a></li>
+                        {{--                        <li><a href="{{url('menu')}}">Contact Us</a></li>--}}
                         @if($title == 'Menu')
                             <li>
                                 <div class="active-cyan-4">

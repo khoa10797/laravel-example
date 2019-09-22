@@ -72,7 +72,7 @@ class LoginController extends Controller
             $password = $request->get('password');
 
             if (Auth::attempt(['username' => $userName, 'password' => $password])) {
-                return redirect('/admin/product');
+                return redirect('/admin');
             } else {
                 $errors = new MessageBag(['error' => 'Tên tài khoản hoặc mật khẩu không đúng']);
                 return redirect()->back()->withInput()->withErrors($errors);

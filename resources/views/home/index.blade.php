@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all"/>
     <!-- Style-CSS -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+
+    <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css">
     <!-- Font-Awesome-Icons-CSS -->
     <!-- //Custom-Files -->
 
@@ -84,13 +86,18 @@
                                         <span class="fa fa-google-plus"></span>
                                     </a>
                                 </li>
-                                <li class="ml-3">
+                                <li>
                                     <p>Cart:</p>
                                 </li>
                                 <li class="twitter-w3">
-                                    <a href="#cart">
-                                        <span class="fa fa-shopping-cart"></span>
-                                    </a>
+                                    <div style="position: relative">
+                                        <a href="{{url('/order')}}">
+                                            <span class="fa fa-shopping-cart"></span>
+                                        </a>
+                                        @if(Session::has('total-item') && Session::get('total-item'))
+                                            <span id="total-item-cart">{{Session::get('total-item')}}</span>
+                                        @endif
+                                    </div>
                                 </li>
                             </ul>
                             <!-- //social icons -->
@@ -110,7 +117,7 @@
         <div class="nav-content">
             <!-- logo -->
             <h1>
-                <a id="logo" class="logo" href="index.html">
+                <a id="logo" class="logo" href="{{url('home')}}">
                     <img src="images/logo.png" alt="" class="img-fluid"><span>Tasty</span> Burger
                 </a>
             </h1>
@@ -122,9 +129,9 @@
                     <input type="checkbox" id="drop"/>
                     <ul class="menu">
                         <li><a href="{{url('home')}}">Home</a></li>
-                        <li><a href="{{url('menu')}}">About Us</a></li>
+                        {{--                        <li><a href="{{url('menu')}}">About Us</a></li>--}}
                         <li><a href="{{url('menu')}}">Menu</a></li>
-                        <li><a href="{{url('menu')}}">Contact Us</a></li>
+                        {{--                        <li><a href="{{url('menu')}}">Contact Us</a></li>--}}
                     </ul>
                 </nav>
             </div>
@@ -146,10 +153,10 @@
                         <h3 class="text-da mb-4">Flame <span>Grilled Burger</span></h3>
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                             laudantium</p>
-                        <a href="about.html" class="button-w3ls active mt-5">Read More
+                        <a href="#" class="button-w3ls active mt-5">Read More
                             <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                         </a>
-                        <a href="menu.html" class="button-w3ls mt-5 ml-2">Order Now
+                        <a href="{{url('menu')}}" class="button-w3ls mt-5 ml-2">Order Now
                             <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -211,7 +218,7 @@
                     architecto
                     beatae vitae dicta
                     sunt explicabo.Nemo enim ipsam voluptatem quia voluptas sit.</p>
-                <a href="about.html" class="button-w3ls mt-5">Read More
+                <a href="#" class="button-w3ls mt-5">Read More
                     <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                 </a>
             </div>
@@ -232,14 +239,14 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card border-0 med-blog">
                     <div class="card-header p-0">
-                        <a href="menu.html">
+                        <a href="{{url('menu')}}">
                             <img class="card-img-bottom" src="images/blog1.jpg" alt="Card image cap">
                         </a>
                     </div>
                     <div class="card-body border border-top-0">
-                        <h5 class="blog-title card-title m-0"><a href="menu.html">French Burger</a></h5>
+                        <h5 class="blog-title card-title m-0"><a href="{{url('menu')}}">French Burger</a></h5>
                         <p class="mt-3">Cras ultricies ligula sed magna dictum porta auris blandita.</p>
-                        <a href="menu.html" class="btn button-w3ls mt-4 mb-3">View More
+                        <a href="{{url('menu')}}" class="btn button-w3ls mt-4 mb-3">View More
                             <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -250,14 +257,14 @@
             <div class="col-lg-4 col-md-6 mt-md-0 mt-5">
                 <div class="card border-0 med-blog">
                     <div class="card-header p-0">
-                        <a href="menu.html">
+                        <a href="{{url('menu')}}">
                             <img class="card-img-bottom" src="images/blog2.jpg" alt="Card image cap">
                         </a>
                     </div>
                     <div class="card-body border border-top-0">
-                        <h5 class="blog-title card-title m-0"><a href="menu.html">Veg Muffin</a></h5>
+                        <h5 class="blog-title card-title m-0"><a href="{{url('menu')}}">Veg Muffin</a></h5>
                         <p class="mt-3">Cras ultricies ligula sed magna dictum porta auris blandita.</p>
-                        <a href="menu.html" class="button-w3ls active mt-4 mb-3">View More
+                        <a href="{{url('menu')}}" class="button-w3ls active mt-4 mb-3">View More
                             <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -268,14 +275,14 @@
             <div class="col-lg-4 col-md-6 mt-lg-0 mt-5">
                 <div class="card border-0 med-blog">
                     <div class="card-header p-0">
-                        <a href="menu.html">
+                        <a href="{{url('menu')}}">
                             <img class="card-img-bottom" src="images/blog3.jpg" alt="Card image cap">
                         </a>
                     </div>
                     <div class="card-body border border-top-0">
-                        <h5 class="blog-title card-title m-0"><a href="menu.html">Hashbrown Brioche</a></h5>
+                        <h5 class="blog-title card-title m-0"><a href="{{url('menu')}}">Hashbrown Brioche</a></h5>
                         <p class="mt-3">Cras ultricies ligula sed magna dictum porta auris blandita.</p>
-                        <a href="menu.html" class="button-w3ls mt-4 mb-3">View More
+                        <a href="{{url('menu')}}" class="button-w3ls mt-4 mb-3">View More
                             <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -293,11 +300,11 @@
         <div class="col-md-6 p-0">
             <div class="blog-sec-w3">
                 <div class="text-blog-w3 text-center p-2">
-                    <h4 class="text-wh mb-3"><a href="menu.html">Best Fast Food Collection</a></h4>
+                    <h4 class="text-wh mb-3"><a href="{{url('menu')}}">Best Fast Food Collection</a></h4>
                     <p class="text-li">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Sed
                         ut perspiciatis
                         unde omnis iste natus error.</p>
-                    <a href="menu.html" class="button-w3ls active mt-5">Order Now
+                    <a href="{{url('menu')}}" class="button-w3ls active mt-5">Order Now
                         <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -306,11 +313,11 @@
         <div class="col-md-6 p-0">
             <div class="blog-sec-w3 blog-sec-w3-2">
                 <div class="text-blog-w3 text-center p-2">
-                    <h4 class="text-wh mb-3"><a href="menu.html">Organic Best & Fresh Food</a></h4>
+                    <h4 class="text-wh mb-3"><a href="{{url('menu')}}">Organic Best & Fresh Food</a></h4>
                     <p class="text-li">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Sed
                         ut perspiciatis
                         unde omnis iste natus error.</p>
-                    <a href="menu.html" class="button-w3ls active mt-5">Order Now
+                    <a href="{{url('menu')}}" class="button-w3ls active mt-5">Order Now
                         <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -416,7 +423,7 @@
             <div class="col-lg-4 footer-grid_section_1its footer-text">
                 <!-- logo -->
                 <h2>
-                    <a class="logo text-wh" href="index.html">
+                    <a class="logo text-wh" href="{{url('home')}}">
                         <img src="images/logo.png" alt="" class="img-fluid"><span>Tasty</span> Burger
                     </a>
                 </h2>

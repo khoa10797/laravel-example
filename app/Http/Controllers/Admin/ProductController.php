@@ -115,7 +115,7 @@ class ProductController extends Controller
             ]);
 
             $image = $this->uploadImage($request);
-            unlink(public_path($product->image));
+//            unlink(public_path($product->image));
         }
 
 

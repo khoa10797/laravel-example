@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand mr-1" href="{{url('home')}}">HOME</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -34,15 +34,15 @@
 
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
-                   aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
+{{--        <div class="input-group">--}}
+{{--            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"--}}
+{{--                   aria-describedby="basic-addon2">--}}
+{{--            <div class="input-group-append">--}}
+{{--                <button class="btn btn-primary" type="button">--}}
+{{--                    <i class="fas fa-search"></i>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </form>
 
     <!-- Navbar -->
@@ -65,7 +65,7 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{url('/admin')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
@@ -78,6 +78,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">Action:</h6>
+                <a class="dropdown-item" href="{{url('/admin/product')}}">Xem sản phẩm</a>
                 <a class="dropdown-item" href="{{url('/admin/product/create')}}">Thêm sản phẩm</a>
             </div>
         </li>
@@ -130,7 +131,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="{{url('/logout')}}">Logout</a>
             </div>
         </div>
     </div>

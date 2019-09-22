@@ -22,10 +22,10 @@
             </select>
 
             <label for="start-date" class="m-3">Từ ngày</label>
-            <input id="start-datepicker" name="start-date" {{$startDate != null?"value = $startDate":""}} required/>
+            <input id="start-datepicker" name="start-date" {{$startDate != null ? "value = $startDate":""}} required/>
 
             <label for="end-date" class="m-3">Đến ngày</label>
-            <input id="end-datepicker" name="end-date" {{$endDate != null?"value = $endDate":""}} required/>
+            <input id="end-datepicker" name="end-date" {{$endDate != null ? "value = $endDate":""}} required/>
 
             <button type="submit" class="btn btn-primary ml-3">Tìm kiếm</button>
         </form>
@@ -65,7 +65,7 @@
                         <span>Thành công</span>
                     @endswitch
                 </td>
-                <td>{{$invoice->price}}</td>
+                <td>{{number_format($invoice->price * 1000)}}</td>
                 <td>
                     <a href="{{url('/admin/order', ['id'=>$invoice->id])}}" role="button" class="btn btn-primary">Chi
                         tiết</a>

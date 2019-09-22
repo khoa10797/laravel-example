@@ -75,6 +75,8 @@ class OrderController extends Controller
 
     public function get(Request $request)
     {
+        $this->authorize('view-order');
+
         $invoices = Invoice::query();
         $status = $request->get('status');
         $startDateString = $request->get('start-date');
@@ -104,9 +106,12 @@ class OrderController extends Controller
 
     public function updateStatus($id, $status)
     {
+        $this->authorize('update-order');
+
         $invoice = Invoice::query()->find($id);
         $invoice->status = $status;
         $invoice->save();
+
         return \App::make('redirect')->back();
     }
 

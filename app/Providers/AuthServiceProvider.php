@@ -41,12 +41,28 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-admin', function ($user) {
             return $this->authorization($user, 'VIEW_ADMIN');
         });
+
+        Gate::define('view-order', function ($user) {
+            return $this->authorization($user, 'VIEW_ORDER');
+        });
+
+        Gate::define('add-order', function ($user) {
+            return $this->authorization($user, 'ADD_ORDER');
+        });
+
+        Gate::define('update-order', function ($user) {
+            return $this->authorization($user, 'UPDATE_ORDER');
+        });
     }
 
     private function authorization(User $user, $roleName)
     {
         return $user->roles->contains(function ($value) use ($roleName) {
-            return $value->name == $roleName;
+            if (strcasecmp($value->name, 'ADMIN') == 0) {
+                return true;
+            }
+
+            return strcasecmp($value->name, $roleName) == 0;
         });
     }
 }
