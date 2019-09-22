@@ -77,24 +77,20 @@ class OrderController extends Controller
     {
         $this->authorize('view-order');
 
-        $invoices = Invoice::query();
         $status = $request->get('status');
         $startDateString = $request->get('start-date');
         $endDateString = $request->get('end-date');
 
-        if ($status != null && $status != -101) {
-            $invoices = $invoices->where('status', '=', $status);
-        }
+        $startDateString != null ?: $startDateString = date('d-m-Y', strtotime('-30 days'));
+        $endDateString != null ?: $endDateString = date('d-m-Y');
 
-        if ($startDateString != null) {
-            $startDate = \DateTime::createFromFormat('d-m-Y H:i:s', $startDateString . ' 00:00:00');
-            $invoices = $invoices->where('updated_at', '>=', $startDate);
-        }
+        $startDate = \DateTime::createFromFormat('d-m-Y H:i:s', $startDateString . ' 00:00:00');
+        $endDate = \DateTime::createFromFormat('d-m-Y H:i:s', $endDateString . ' 23:59:59');
 
-        if ($endDateString != null) {
-            $endDate = \DateTime::createFromFormat('d-m-Y H:i:s', $endDateString . ' 23:59:59');
-            $invoices = $invoices->where('updated_at', '<=', $endDate);
-        }
+        $invoices = Invoice::query()
+            ->where('updated_at', '>=', $startDate)
+            ->where('updated_at', '>=', $startDate)
+            ->where('updated_at', '<=', $endDate);
 
         return view('order.index-admin', [
             'invoices' => $invoices->paginate(20),

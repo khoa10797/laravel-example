@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\MessageBag;
 use Validator;
 
@@ -48,7 +49,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('login.index');
+        return view('login.index', ['username' => Cookie::get('username'), 'password' => Cookie::get('password')]);
     }
 
     public function login(Request $request)
@@ -70,8 +71,16 @@ class LoginController extends Controller
         } else {
             $userName = $request->get('username');
             $password = $request->get('password');
+            $rememberMe = $request->get('remember-me');
 
             if (Auth::attempt(['username' => $userName, 'password' => $password])) {
+                if ($rememberMe == true) {
+                    Cookie::queue('username', $userName, 86400 * 30);
+                    Cookie::queue('password', $password, 86400 * 30);
+                } else {
+                    setcookie("username", "", time() - 3600);
+                    setcookie("password", "", time() - 3600);
+                }
                 return redirect('/admin');
             } else {
                 $errors = new MessageBag(['error' => 'Tên tài khoản hoặc mật khẩu không đúng']);
