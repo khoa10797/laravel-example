@@ -76,21 +76,23 @@ class OrderController extends Controller
     public function get(Request $request)
     {
         $this->authorize('view-order');
+        $invoices = Invoice::query();
 
         $status = $request->get('status');
         $startDateString = $request->get('start-date');
         $endDateString = $request->get('end-date');
 
-        $startDateString != null ?: $startDateString = date('d-m-Y', strtotime('-30 days'));
+        $startDateString != null ?: $startDateString = date('d-m-Y', strtotime('-7 days'));
         $endDateString != null ?: $endDateString = date('d-m-Y');
+        $status != null ?: $status = '-101';
 
         $startDate = \DateTime::createFromFormat('d-m-Y H:i:s', $startDateString . ' 00:00:00');
         $endDate = \DateTime::createFromFormat('d-m-Y H:i:s', $endDateString . ' 23:59:59');
 
-        $invoices = Invoice::query()
-            ->where('updated_at', '>=', $startDate)
-            ->where('updated_at', '>=', $startDate)
-            ->where('updated_at', '<=', $endDate);
+        if ($status != '-101') {
+            $invoices->where('status', '=', $status);
+        }
+        $invoices->where('updated_at', '>=', $startDate)->where('updated_at', '<=', $endDate);
 
         return view('order.index-admin', [
             'invoices' => $invoices->paginate(20),
