@@ -55,10 +55,12 @@
             <div class="popup">
                 <img class="img-fluid" src="{{$product->image}}" alt="">
                 <h4 class="p-mask">{{$product->name}} - <span>$22</span></h4>
+                <h6 class="mb-2">{{$product->note}}</h6>
+                <h6 class="mb-2" style="color: #636363">Lượt mua: {{$product->buy_count}}</h6>
                 <form method="POST" action="{{url('/order/invoiceDetail')}}">
                     @csrf
                     <div class="form-group">
-                        <label for="email">Số lượng:</label>
+                        <label class="label-quantity" for="email">Số lượng:</label>
                         <input type="number" class="form-control" name="quantity" value="1" min="1" max="50">
                     </div>
                     <input type="hidden" name="product-id" value="{{$product->id}}">

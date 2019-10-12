@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Invoice;
 use App\InvoiceDetail;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -42,13 +43,13 @@ class OrderController extends Controller
         ]);
 
         $invoice->save();
-        $this->insertInvoiceDetail($invoice->id);
+        $this->insertInvoiceDetails($invoice->id);
         Session::flush();
 
         return redirect('/menu');
     }
 
-    private function insertInvoiceDetail($invoiceId)
+    private function insertInvoiceDetails($invoiceId)
     {
         $invoiceDetails = (array)session()->get('invoice-details');
 
@@ -59,6 +60,14 @@ class OrderController extends Controller
 
         foreach ($invoiceDetails as $invoiceDetail) {
             $invoiceDetail->save();
+
+            $productId = $invoiceDetail->product_id;
+            $product = Product::query()->find($productId);
+
+            $oldQuantity = $product->buy_count;
+            $newQuantity = $oldQuantity + $invoiceDetail->quantity;
+            $product->buy_count = $newQuantity;
+            $product->save();
         }
     }
 
