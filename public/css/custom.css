@@ -12,3 +12,18 @@
     color: red !important;
     font-weight: bold;
 }
+
+#btn-login-google {
+    color: white;
+    background-color: red;
+    width: 100%;
+}
+
+.logo-user {
+    text-align: center;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    color: white;
+    background-color: #00aced;
+}

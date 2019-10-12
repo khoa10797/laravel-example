@@ -36,6 +36,8 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::get('/login', 'LoginController@showLoginForm');
     Route::post('/login', 'LoginController@login');
     Route::get('/logout', 'LoginController@logout');
+    Route::get('login/google', 'LoginController@redirectToGoogle');
+    Route::get('login/google/callback', 'LoginController@handleGoogleCallback');
 });
 
 Route::resources([

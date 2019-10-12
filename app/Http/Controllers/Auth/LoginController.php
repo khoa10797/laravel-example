@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
+use Laravel\Socialite\Facades\Socialite;
 use Validator;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -81,6 +85,8 @@ class LoginController extends Controller
                     setcookie("username", "", time() - 3600);
                     setcookie("password", "", time() - 3600);
                 }
+                $user = User::query()->where('username', '=', $userName)->first();
+                session(['user-name' => strtoupper($user->username[0])]);
                 return redirect('/admin');
             } else {
                 $errors = new MessageBag(['error' => 'Tên tài khoản hoặc mật khẩu không đúng']);
@@ -92,6 +98,37 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        Session::flush();
         return redirect('/login');
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+            $findUser = User::where('google_id', $user->id)->first();
+            if ($findUser) {
+                session(['user' => $findUser, 'user-avatar' => $findUser->avatar]);
+                return redirect('/home');
+            } else {
+                $newUser = User::create([
+                    'name' => $user->getName(),
+                    'username' => $user->getEmail(),
+                    'password' => $user->getName(),
+                    'email' => $user->getEmail(),
+                    'avatar' => $user->getAvatar(),
+                    'google_id' => $user->getId()
+                ]);
+                session(['user-avatar' => $newUser->avatar]);
+                return redirect('/home');
+            }
+        } catch (Exception $e) {
+            return redirect('login/google');
+        }
     }
 }

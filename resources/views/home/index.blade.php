@@ -66,9 +66,20 @@
                     <div class="row middle-flex">
                         <div class="col-lg-5 col-4 top-w3layouts p-md-0 text-right">
                             <!-- login -->
-                            <a href="{{url('login')}}" class="btn login-button-2 text-uppercase text-wh">
-                                <span class="fa fa-sign-in mr-2"></span>Login</a>
-                            <!-- //login -->
+                            @if(Session::has('user-avatar'))
+                                <a href="{{url('/logout')}}">
+                                    <img class="logo-user rounded-circle" src="{{Session::get('user-avatar')}}">
+                                </a>
+                            @elseif(Session::has('user-name'))
+                                <a href="{{url('/logout')}}" class="logo-user rounded-circle">
+                                    {{Session::get('user-name')}}
+                                </a>
+                            @else
+                                <a href="{{url('login')}}" class="btn login-button-2 text-uppercase text-wh">
+                                    <span class="fa fa-sign-in mr-2"></span>Login
+                                </a>
+                        @endif
+                        <!-- //login -->
                         </div>
                         <div class="col-lg-7 col-8 social-grid-w3">
                             <!-- social icons -->
