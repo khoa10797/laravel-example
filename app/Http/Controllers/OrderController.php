@@ -40,18 +40,20 @@ class OrderController extends Controller
         $invoice = new Invoice([
             'customer_name' => $request->get('name'),
             'customer_phone' => $request->get('phone'),
+            'email' => $request->get('email'),
             'address' => $request->get('address'),
             'price' => $this->calculatingPrice()
         ]);
 
         $invoice->save();
         $this->insertInvoiceDetails($invoice->id);
-
-        if (\session()->get('user') != null) {
+        try {
             $this->sendMail($invoice);
+        } catch (\Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
         }
-        Session::flush();
 
+        \session(['invoice-details' => null, 'total-item' => null]);
         return redirect('/menu');
     }
 
@@ -110,7 +112,7 @@ class OrderController extends Controller
         $invoices->where('updated_at', '>=', $startDate)->where('updated_at', '<=', $endDate);
 
         return view('order.index-admin', [
-            'invoices' => $invoices->paginate(20),
+            'invoices' => $invoices->paginate(10),
             'status' => $status,
             'startDate' => $startDateString,
             'endDate' => $endDateString
@@ -266,11 +268,11 @@ class OrderController extends Controller
 
     private function sendMail($invoice)
     {
-        $user = \session()->get('user');
         $mail = new \stdClass();
         $mail->sender = 'Ma Bư';
-        $mail->receiver = $user->name;
-        $mail->message = "Đơn hàng của bạn đang được xử lý, có giá trị là $invoice->price";
-        Mail::to($user->email)->send(new MailSender($mail));
+        $mail->receiver = $invoice->customer_name;
+        $price = number_format($invoice->price * 1000);
+        $mail->message = "Đơn hàng của bạn đang được xử lý, có giá trị là $price";
+        Mail::to($invoice->email)->send(new MailSender($mail));
     }
 }

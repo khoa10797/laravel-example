@@ -64,6 +64,10 @@
                                 <input type="text" class="form-control" name="phone" required>
                             </div>
                             <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" name="email" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="address">Địa chỉ:</label>
                                 <input type="text" class="form-control" name="address" required>
                             </div>
