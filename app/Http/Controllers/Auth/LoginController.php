@@ -99,6 +99,8 @@ class LoginController extends Controller
     {
         Auth::logout();
         Session::flush();
+        setcookie("user-name", "", time() - 3600);
+        setcookie("user-avatar", "", time() - 3600);
         return redirect('/login');
     }
 
@@ -119,7 +121,7 @@ class LoginController extends Controller
                 $newUser = User::create([
                     'name' => $user->getName(),
                     'username' => $user->getEmail(),
-                    'password' => $user->getName(),
+                    'password' => bcrypt($user->getName()),
                     'email' => $user->getEmail(),
                     'avatar' => $user->getAvatar(),
                     'google_id' => $user->getId()

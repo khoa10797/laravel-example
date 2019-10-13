@@ -31,6 +31,7 @@ Route::get('/admin/order/{id}', 'OrderController@show');
 Route::post('/order/invoiceDetail', 'OrderController@addItem');
 Route::put('/order/invoiceDetail', 'OrderController@updateItem');
 Route::get('/order/invoiceDetail/remove/{productId}', 'OrderController@removeItem');
+Route::get('/order/export', 'ExcelController@exportAllInvoice');
 
 Route::group(['namespace' => 'Auth'], function () {
     Route::get('/login', 'LoginController@showLoginForm');

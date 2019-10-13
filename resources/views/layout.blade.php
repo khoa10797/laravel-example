@@ -38,6 +38,17 @@
     <!-- //Web-Fonts -->
 
     <script src="{{asset('js/jquery-3.4.1.min.js')}}" type="text/javascript"></script>
+
+    <style>
+        .logo-user {
+            text-align: center;
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            color: white;
+            background-color: #00aced;
+        }
+    </style>
 </head>
 
 <body>
@@ -126,7 +137,7 @@
         <div class="nav-content">
             <!-- logo -->
             <h1>
-                <a id="logo" class="logo" href="index.html">
+                <a id="logo" class="logo" href="{{url('/')}}">
                     <img src="/images/logo.png" alt="" class="img-fluid"><span>Tasty</span> Burger
                 </a>
             </h1>

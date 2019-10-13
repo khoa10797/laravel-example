@@ -3,7 +3,15 @@
 @section('content')
     <link href="{{asset('css/gijgo.min.css')}}" rel="stylesheet" type="text/css">
 
-    <div class="d-flex justify-content-end align-items-center mt-5">
+    <style>
+        .with-datepicker {
+            width: 150px !important;
+        }
+    </style>
+
+    <div class="d-flex justify-content-sm-between align-items-center mt-5">
+        <a href="{{url('/order/export')}}" role="button" class="btn btn-primary">Xuất file excel</a>
+
         <form class="form-inline" method="GET" action="{{url('/admin/order')}}">
             <label for="status" class="mr-3">Trạng thái</label>
             <select name="status" class="form-control">
@@ -21,11 +29,13 @@
                 </option>
             </select>
 
-            <label for="start-date" class="m-3">Từ ngày</label>
-            <input id="start-datepicker" name="start-date" {{$startDate != null ? "value = $startDate":""}} required/>
+            <label for="start-date" class="m-3">Từ</label>
+            <input id="start-datepicker" class="with-datepicker" name="start-date"
+                   {{$startDate != null ? "value = $startDate":""}} required/>
 
-            <label for="end-date" class="m-3">Đến ngày</label>
-            <input id="end-datepicker" name="end-date" {{$endDate != null ? "value = $endDate":""}} required/>
+            <label for="end-date" class="m-3">Đến</label>
+            <input id="end-datepicker" class="with-datepicker" name="end-date"
+                   {{$endDate != null ? "value = $endDate":""}} required/>
 
             <button type="submit" class="btn btn-primary ml-3">Tìm kiếm</button>
         </form>

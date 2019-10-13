@@ -11,6 +11,14 @@
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css">
 
+    <style>
+        #btn-login-google {
+            color: white;
+            background-color: red;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body style="height: 100%">
 <!-- login -->

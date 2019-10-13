@@ -38,6 +38,16 @@
         href="//fonts.googleapis.com/css?family=Barlow+Semi+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <!-- //Web-Fonts -->
+    <style>
+        .logo-user {
+            text-align: center;
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            color: white;
+            background-color: #00aced;
+        }
+    </style>
 </head>
 
 <body>
