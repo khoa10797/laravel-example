@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Invoice;
 use App\InvoiceDetail;
+use App\Mail\MailSender;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -44,6 +46,10 @@ class OrderController extends Controller
 
         $invoice->save();
         $this->insertInvoiceDetails($invoice->id);
+
+        if (\session()->get('user') != null) {
+            $this->sendMail($invoice);
+        }
         Session::flush();
 
         return redirect('/menu');
@@ -256,5 +262,15 @@ class OrderController extends Controller
         }
 
         return array_search($result, $array);
+    }
+
+    private function sendMail($invoice)
+    {
+        $user = \session()->get('user');
+        $mail = new \stdClass();
+        $mail->sender = 'Ma Bư';
+        $mail->receiver = $user->name;
+        $mail->message = "Đơn hàng của bạn đang được xử lý, có giá trị là $invoice->price";
+        Mail::to($user->email)->send(new MailSender($mail));
     }
 }

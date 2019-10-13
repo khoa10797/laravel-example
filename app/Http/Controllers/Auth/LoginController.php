@@ -86,7 +86,7 @@ class LoginController extends Controller
                     setcookie("password", "", time() - 3600);
                 }
                 $user = User::query()->where('username', '=', $userName)->first();
-                session(['user-name' => strtoupper($user->username[0])]);
+                session(['user' => $user, 'user-name' => strtoupper($user->username[0])]);
                 return redirect('/admin');
             } else {
                 $errors = new MessageBag(['error' => 'Tên tài khoản hoặc mật khẩu không đúng']);
@@ -126,7 +126,7 @@ class LoginController extends Controller
                     'avatar' => $user->getAvatar(),
                     'google_id' => $user->getId()
                 ]);
-                session(['user-avatar' => $newUser->avatar]);
+                session(['user' => $newUser, 'user-avatar' => $newUser->avatar]);
                 return redirect('/home');
             }
         } catch (Exception $e) {
