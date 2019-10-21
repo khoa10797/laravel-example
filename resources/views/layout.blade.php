@@ -85,7 +85,7 @@
                                    class="rounded-circle logo-user">{{Session::get('user-name')}}</a>
                             @else
                                 <a href="{{url('login')}}" class="btn login-button-2 text-uppercase text-wh">
-                                    <span class="fa fa-sign-in mr-2"></span>Login
+                                    <span class="fa fa-sign-in mr-2"></span>Đăng nhập
                                 </a>
                         @endif
                         <!-- //login -->
@@ -148,10 +148,8 @@
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop"/>
                     <ul class="menu">
-                        <li><a href="{{url('home')}}">Home</a></li>
-                        {{--                        <li><a href="{{url('menu')}}">About Us</a></li>--}}
+                        <li><a href="{{url('home')}}">Trang chủ</a></li>
                         <li><a href="{{url('menu')}}">Menu</a></li>
-                        {{--                        <li><a href="{{url('menu')}}">Contact Us</a></li>--}}
                         @if($title == 'Menu')
                             <li>
                                 <div class="active-cyan-4">
@@ -186,4 +184,30 @@
 <script src="{{asset('/js/custom.js')}}"></script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 </body>
+
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            xfbml: true,
+            version: 'v4.0'
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="106485040776069">
+</div>
+
 </html>

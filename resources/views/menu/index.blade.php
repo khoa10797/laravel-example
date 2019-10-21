@@ -65,7 +65,7 @@
                     </div>
                     <input type="hidden" name="product-id" value="{{$product->id}}">
                     <button type="submit" class="btn btn-success">
-                        Order <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
+                        Đặt hàng <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
                     </button>
                 </form>
                 <a class="close" href="#">×</a>

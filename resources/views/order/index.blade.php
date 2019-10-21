@@ -22,7 +22,7 @@
                                max="50" data-product-id="{{$invoiceDetail->product->id}}"
                                data-price="{{$invoiceDetail->product->price}}">
                     </td>
-                    <td>{{$invoiceDetail->product->price}}</td>
+                    <td>{{$invoiceDetail->product->price * 1000}}</td>
                     <td id="{{'payout'.$invoiceDetail->product->id}}" class="payout">
                         {{$invoiceDetail->quantity * $invoiceDetail->product->price * 1000}}
                     </td>
